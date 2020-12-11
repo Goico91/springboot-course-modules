@@ -7,7 +7,6 @@ import com.course.springboot.modules.controllers.mappers.EmployeeToEmployeeDTOMa
 import com.course.springboot.modules.controllers.mappers.EmployeeToListEmployeesDTOMapper;
 import com.course.springboot.modules.services.EmployeesService;
 import com.course.springboot.modules.vo.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +21,11 @@ import java.util.List;
 @RestController
 public class EmployeesController implements EmployeesApi {
 
-    @Autowired
-    private EmployeesService employeesService;
+    private final EmployeesService employeesService;
+
+    public EmployeesController(EmployeesService employeesService) {
+        this.employeesService = employeesService;
+    }
 
     @Override
     public ResponseEntity<List<ListEmployeesDTO>> getEmployees(String name, String surname, Integer office, Pageable pageable) {
